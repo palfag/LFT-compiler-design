@@ -1,4 +1,4 @@
-package Lexer.exercise2_1;
+package Lexer;
 
 public class NumberTok extends Token {
     public int lexeme;
@@ -15,7 +15,7 @@ public class NumberTok extends Token {
 
 /*
 	public static void main(String[] args) {
-		Lexer.exercise2_1.NumberTok n = new Lexer.exercise2_1.NumberTok(Lexer.exercise2_1.Tag.NUM, 32);
+		Lexer.NumberTok n = new Lexer.NumberTok(Lexer.Tag.NUM, 32);
 		System.out.println(n);
 	}
 */

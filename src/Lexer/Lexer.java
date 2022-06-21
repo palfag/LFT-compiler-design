@@ -1,4 +1,4 @@
-package Lexer.exercise2_1;
+package Lexer;
 
 import java.io.*;
 
@@ -141,26 +141,37 @@ public class Lexer {
                 return new Token(Tag.EOF);
 
             default:
-                if (Character.isLetter(peek)) {
+                if (Character.isLetter(peek) || peek == '_') {
 
                     // ... gestire il caso degli identificatori e delle parole chiave //
                     String s = "";
+                    boolean check = false;
 
-                    while(Character.isLetterOrDigit(peek)){
+                    while(Character.isLetterOrDigit(peek) || peek == '_'){
+
+                        if(Character.isLetterOrDigit(peek))
+                            check = true;
+
                         s +=  peek;
                         readch(br);
                     }
 
-                    if(s.equals("assign")) return Word.assign;
-                    else if(s.equals("to")) return Word.to;
-                    else if(s.equals("if")) return Word.iftok;
-                    else if(s.equals("else")) return Word.elsetok;
-                    else if(s.equals("while")) return Word.whiletok;
-                    else if(s.equals("begin")) return Word.begin;
-                    else if(s.equals("end")) return Word.end;
-                    else if(s.equals("print")) return Word.print;
-                    else if(s.equals("read")) return Word.read;
-                    else return new Word(Tag.ID,s);
+                    if(check){
+                        if(s.equals("assign")) return Word.assign;
+                        else if(s.equals("to")) return Word.to;
+                        else if(s.equals("if")) return Word.iftok;
+                        else if(s.equals("else")) return Word.elsetok;
+                        else if(s.equals("while")) return Word.whiletok;
+                        else if(s.equals("begin")) return Word.begin;
+                        else if(s.equals("end")) return Word.end;
+                        else if(s.equals("print")) return Word.print;
+                        else if(s.equals("read")) return Word.read;
+                        else return new Word(Tag.ID,s);
+                    }
+                    else {
+                        System.err.println("Error: you cannot create an ID with only underscores.");
+                        return null;
+                    }
             
 
                 } else if (Character.isDigit(peek)) {

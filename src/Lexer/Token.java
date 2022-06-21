@@ -1,4 +1,4 @@
-package Lexer.exercise2_1;
+package Lexer;
 
 public class Token {
     public final int tag;
