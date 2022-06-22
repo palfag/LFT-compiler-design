@@ -95,7 +95,7 @@ public class Lexer {
                         readch(br);
                     }
 
-                    //peek = ' ';
+                    peek = ' ';
                     return lexical_scan(br);
                 }
                 else
