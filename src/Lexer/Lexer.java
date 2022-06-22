@@ -64,8 +64,42 @@ public class Lexer {
 
 
             case '/':
-                peek = ' ';
-                return Token.div;
+                readch(br);
+
+                if (peek == '/') {
+                    // ignora fino a quando non trova un "\n" o EOF
+                    while(peek != '\n' && peek != (char) Tag.EOF){
+                        readch(br);
+                    }
+                    return lexical_scan(br);
+                }
+
+                else if(peek == '*'){
+                    readch(br);
+
+                    boolean isAsteriskSecondLast = false;
+
+                    // il penultimo è * e l'ultimo è /
+                    while(!(peek == '/' && isAsteriskSecondLast)){
+
+                        if(peek == '*')
+                            isAsteriskSecondLast = true;
+
+                        else if (peek == (char) Tag.EOF){
+                            System.err.println("Error : Comment has not been closed");
+                            return null;
+                        }
+
+                        else isAsteriskSecondLast = false;
+
+                        readch(br);
+                    }
+
+                    //peek = ' ';
+                    return lexical_scan(br);
+                }
+                else
+                    return Token.div;
 
 
             case ';':
@@ -169,7 +203,7 @@ public class Lexer {
                         else return new Word(Tag.ID,s);
                     }
                     else {
-                        System.err.println("Error: you cannot create an ID with only underscores.");
+                        System.err.println("Error: You cannot create an ID with only underscores.");
                         return null;
                     }
             
@@ -182,6 +216,11 @@ public class Lexer {
                     while(Character.isDigit(peek)){
                         s += peek;
                         readch(br);
+                    }
+
+                    if(s.length() > 1 && s.charAt(0) == '0'){
+                        System.err.println("The following number does not follow the pattern: " + s);
+                        return null;
                     }
 
                     int number = Integer.parseInt(s);
