@@ -1,4 +1,4 @@
-package Lexer;
+package Ex2;
 
 import java.io.*;
 
@@ -200,6 +200,7 @@ public class Lexer {
                         else if(s.equals("end")) return Word.end;
                         else if(s.equals("print")) return Word.print;
                         else if(s.equals("read")) return Word.read;
+
                         else return new Word(Tag.ID,s);
                     }
                     else {

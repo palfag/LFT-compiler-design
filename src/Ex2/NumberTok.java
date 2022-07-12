@@ -1,4 +1,4 @@
-package Lexer;
+package Ex2;
 
 public class NumberTok extends Token {
     public int lexeme;
